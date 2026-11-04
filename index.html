@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuikShare</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>QuikShare</h1>
+        <p id="status-text">Status: <span id="connStatus">Idle</span></p>
+
+        <!-- SENDER SECTION -->
+        <div class="card" id="sender-section">
+            <h2>Send File</h2>
+            <div id="drop-zone" class="drop-zone">
+                <p>Drag & Drop your file here or click to select</p>
+                <input type="file" id="fileInput" hidden>
+            </div>
+            <p id="file-info"></p>
+            <button id="btn-create-room">Generate Room Code</button>
+            <p>Room Code: <strong id="display-roomCode">---</strong></p>
+            
+            <!-- QR Code Container -->
+            <div id="qr-container" class="qr-box"></div>
+            
+            <button id="btn-send-file" disabled>Send File</button>
+        </div>
+
+        <!-- RECEIVER SECTION -->
+        <div class="card" id="receiver-section">
+            <h2>Receive File</h2>
+            <input type="text" id="input-roomCode" placeholder="Enter 6-digit code">
+            <button id="btn-join-room">Join Room</button>
+            
+            <div class="progress-container">
+                <p>Download Progress: <span id="download-progress">0%</span></p>
+                <progress id="progress-bar" value="0" max="100"></progress>
+            </div>
+            <a id="download-link" hidden>Download File</a>
+        </div>
+    </div>
+
+    <!-- Socket.io for the signaling server -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
