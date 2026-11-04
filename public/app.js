@@ -56,12 +56,14 @@ dropZone.addEventListener('dragover', (e) => {
     dropZone.classList.add('dragover');
 });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
 dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
     if (e.dataTransfer.files.length > 0) {
         selectedFile = e.dataTransfer.files[0];
         fileInfo.innerText = `Selected: ${selectedFile.name} (${(selectedFile.size / 1024 / 1024).toFixed(2)} MB)`;
+        btnCreateRoom.disabled = false; 
     }
 });
 
@@ -69,6 +71,7 @@ fileInput.addEventListener('change', () => {
     if (fileInput.files.length > 0) {
         selectedFile = fileInput.files[0];
         fileInfo.innerText = `Selected: ${selectedFile.name} (${(selectedFile.size / 1024 / 1024).toFixed(2)} MB)`;
+        btnCreateRoom.disabled = false; 
     }
 });
 
@@ -79,8 +82,6 @@ btnCreateRoom.addEventListener('click', () => {
     roomCode = Math.floor(100000 + Math.random() * 900000).toString(); 
     displayRoomCode.innerText = roomCode;
     
-    // Create a direct join link for the QR Code
-    // Make sure to access this site on local network IP (e.g. 192.168.x.x) to scan from mobile properly
     const joinLink = `${window.location.origin}/?room=${roomCode}`;
     
     qrContainer.innerHTML = ''; 
