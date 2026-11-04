@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quikshare-v1';
+const CACHE_NAME = 'quikshare-v2';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activate and clean up old caches if you update the version number
+// Activate and clean up old caches to force the new code to load
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
